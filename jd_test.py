@@ -893,7 +893,7 @@ class Jd_test(object):
 
 
 
-############################## for auction end #######################################################
+
     # @check_login
     def auction_bid(self, address,auctionId, eid,price, token, trackId):
 
@@ -932,3 +932,44 @@ class Jd_test(object):
             print(cookiesdata)
             print("load finished")
             self.sess.cookies = cookiesdata
+
+############################## for auction end #######################################################
+
+############################## for coupon end #######################################################
+    # @check_login
+    def coupon_get(self):
+        self.nick_name = "runsparrow"
+
+        self.load_cookies()
+
+        url = 'https://api.m.jd.com/client.action'
+
+        payload = {
+            "functionId": "newBabelAwardCollection",
+            "body":	"{\"activityId\":\"2keLqKB79sxgUcJM8YmbaBpVKeyU\",\"scene\":\"1\",\"args\":\"key=572B71D4718E3E654D32BF5D0C69460D9ECB6FB68080E0F610465AC69EC093862DE520F74806730ED8C8A3FE4FB60917_babel,roleId=F7FE3438F3C6BDA1078A1887E27F6FC8_babel\",\"eid\":\"UNFRVR2PEWUFH7S4HNDQBBTSJPWQEQFRUKFT4NDAHABWOUW5DYAXZYRXDCLYMGOBWWTHIQ7ZS6HNY4ETHQGUXZIMCM\",\"fp\":\"c540fb4a1a6c7e4cb1d8b8ecd5b82cb7\",\"pageClick\":\"Babel_Coupon\",\"mitemAddrId\":\"\",\"geo\":{\"lng\":\"\",\"lat\":\"\"}}",
+            "screen": "750*1334",
+            "client": "wh5",
+            "clientVersion": "1.0.0",
+            "sid": "",
+            "uuid": "",
+            "area": "",
+            "loginType": "3",
+            "callback":	"jsonp1"
+        }
+
+
+        headers = {
+            'User-Agent': self.user_agent,
+            'Host': 'api.m.jd.com',
+            'Referer': 'Referer: https://pro.jd.com/mall/active/2keLqKB79sxgUcJM8YmbaBpVKeyU/index.html,https://pro.m.jd.com/mall/active/2keLqKB79sxgUcJM8YmbaBpVKeyU/index.html',
+        }
+
+        resp_text = ''
+        try:
+            resp_text = self.sess.get(url=url, params=payload, headers=headers).text
+            print(resp_text)
+            return True
+        except Exception as e:
+            logger.error(e)
+            return False
+
