@@ -205,6 +205,7 @@ class Jd_test(object):
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(cookies_file, 'wb') as f:
+            print(self.sess.cookies)
             pickle.dump(self.sess.cookies, f)
 
 ############################## for qrcode login end #######################################################
@@ -893,8 +894,13 @@ class Jd_test(object):
 
 
 ############################## for auction end #######################################################
-    @check_login
+    # @check_login
     def auction_bid(self, address,auctionId, eid,price, token, trackId):
+
+        self.nick_name = "runsparrow"
+
+        self.load_cookies()
+
         url = 'https://used-api.jd.com/auctionRecord/offerPrice'
 
         data = {
@@ -915,3 +921,14 @@ class Jd_test(object):
         resp = self.sess.post(url=url, data=data, headers=headers)
         print(resp.text)
         return resp
+
+
+    def load_cookies(self):
+
+        cookies_file = './cookies/{0}.cookies'.format(self.nick_name)
+        directory = os.path.dirname(cookies_file)
+        with open(cookies_file, 'rb') as f:
+            cookiesdata = pickle.load(f)
+            print(cookiesdata)
+            print("load finished")
+            self.sess.cookies = cookiesdata
