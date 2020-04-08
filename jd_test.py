@@ -393,6 +393,8 @@ class Jd_test(object):
                         logger.info('%s 满足下单条件，开始执行', sku_id)
                         self._cancel_select_all_cart_item()
                         self._add_or_change_cart_item(self.get_cart_detail(), sku_id, count)
+
+
                         if self.submit_order_with_retry(submit_retry, submit_interval):
                             return
 
@@ -663,6 +665,32 @@ class Jd_test(object):
         :param interval: 重试间隔
         :return: 订单提交结果 True/False
         """
+        ############ 定时器触发下单 ##########
+        # while True:
+        #     time_now = time.strftime("%H:%M:%S", time.localtime()) # 刷新
+        #     print(time_now)
+        #     if time_now == "10:00:00": #此处设置每天定时的时间
+            
+        #         # 此处3行替换为需要执行的动作
+        #         for i in range(1, retry + 1):
+        #             logger.info('第[%s/%s]次尝试提交订单', i, retry)
+        #             self.get_checkout_page_detail()
+        #             if self.submit_order():
+        #                 logger.info('第%s次提交订单成功', i)
+        #                 return True
+        #             else:
+        #                 if i < retry:
+        #                     logger.info('第%s次提交失败，%ss后重试', i, interval)
+        #                     time.sleep(interval)
+        #         else:
+        #             logger.info('重试提交%s次结束', retry)
+        #             return False
+                
+            
+        #         time.sleep(2) # 因为以秒定时，所以暂停2秒，使之不会在1秒内执行多次
+        #################
+
+        ########直接下单#############
         for i in range(1, retry + 1):
             logger.info('第[%s/%s]次尝试提交订单', i, retry)
             self.get_checkout_page_detail()
@@ -676,6 +704,8 @@ class Jd_test(object):
         else:
             logger.info('重试提交%s次结束', retry)
             return False
+
+        
 
     @check_login
     def add_item_to_cart(self, sku_ids):
@@ -935,7 +965,7 @@ class Jd_test(object):
 
 ############################## for auction end #######################################################
 
-############################## for coupon end #######################################################
+############################## for coupon start #######################################################
     # @check_login
     def coupon_get(self):
         self.nick_name = "runsparrow"
@@ -972,4 +1002,5 @@ class Jd_test(object):
         except Exception as e:
             logger.error(e)
             return False
+############################## for coupon end #######################################################
 
