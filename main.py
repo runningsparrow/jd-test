@@ -32,5 +32,7 @@ if __name__ == '__main__':
     # trackId = "d22bceb5c925b19b55082a66a01109d0"
     # # jdt.auction_bid(address,auctionId,eid,price,token,trackId)
 
+
+    #############coupon###################
     # retcode = jdt.coupon_get()
     # print(retcode)
